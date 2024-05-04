@@ -11,7 +11,7 @@ const users = [];
 const AIService = new OpenAIService();
 const io = new Server(server, {
     cors: {
-      origin: "https://localhost",
+      origin: process.env.CORS_HOST,
       methods: ["GET", "POST"]
     }
   });
