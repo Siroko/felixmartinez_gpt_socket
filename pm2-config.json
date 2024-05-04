@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "Sockets Felix Martinez",
+            "script": "npm",
+            "args" : "start"
+        }
+    ]
+}
