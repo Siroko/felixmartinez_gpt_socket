@@ -1,9 +1,11 @@
 import OpenAI from "openai";
+import EventEmitter from 'node:events';
 
-class OpenAIService {
+class OpenAIService extends EventEmitter {
     streamMessage = "";
 
     constructor() {
+        super();
         this.openai = new OpenAI({
             organization: process.env.OPENAI_ORGANIZATION_ID,
             project: process.env.OPENAI_PROJECT_ID,
@@ -27,6 +29,7 @@ class OpenAIService {
         );
 
         if (stream && onResponse !== null) {
+            this.emit("message_start");
             for await (const event of response) {
                 if(event.event === "thread.run.requires_action") {
                     console.log("Action Required", threadId);
@@ -37,6 +40,7 @@ class OpenAIService {
                     onResponse(streamMessage);
                 }
             }
+            this.emit("message_end");
         }
     }
 

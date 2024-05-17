@@ -35,6 +35,13 @@ class User {
                 true
             );
         });
+
+        this.service.on("message_start", () => {
+            this.socket.emit('message_start');
+        });
+        this.service.on("message_end", () => {
+            this.socket.emit('message_end');
+        });
     }
 
     aiMessageReceived(message) {
